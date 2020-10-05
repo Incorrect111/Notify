@@ -28,6 +28,7 @@
 <script>
 import notify from "@/components/Notify.vue";
 import preloader from "@/components/UI/Preloader.vue";
+import axios from "axios"
 
 export default {
   components: { notify, preloader },
@@ -36,14 +37,34 @@ export default {
     return {
       loading: false,
       messages: [
-        { title: "message 1" },
-        { title: "message 2" },
-        { title: "message 3" },
-        { title: "message 4" },
-        { title: "message 5" },
-        { title: "message 6" }
       ]
     };
+  },
+  mounted () {
+   this.getNotify ()
+  },
+  methods: {
+     getNotifyLazy () {
+       this.loading = true
+       setTimeout ( () => {
+         this.getNotify()
+       }, 1800 )
+     },
+
+    getNotify () {
+      this.loading = true
+       axios
+      .get('https://tocode.ru/static/c/vue-pro/notifyApi.php')
+        .then(response => {
+          let res = response.data.notify
+          this.messages = res
+          // console.log(res)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally( () => (this.loading = false) )
+    }
   }
 };
 </script>
