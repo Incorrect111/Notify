@@ -11,6 +11,8 @@
     :disabled="maxLenth === 0"
     :class="{ btnDisabled: maxLenth === 0 }"
     >Load more</button>
+    <button class="btn btnPrimary" @click="$store.dispatch('setMessageLazy')">
+      Start</button>
   </table>
 
 </template>
