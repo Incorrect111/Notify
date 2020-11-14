@@ -14,14 +14,14 @@
           <!-- notify-content -->
           <div class="notify__content">
             <!-- preloader -->
-            <preloader v-if="loadingF" :width="90" :height="90"/>
+            <preloader v-if="loadingFunction" :width="90" :height="90"/>
             <!-- error -->
-            <div class="error" v-if="errorF">
-              <p>{{ this.$store.getters.getErrorName }}</p>
+            <div class="error" v-if="errorFunction">
+              <p>{{ this.$store.getters.getmessage }}</p>
             </div>
             <!-- notify -->
             <notify
-            v-if="!loadingF && !errorF" :messages="messages" />
+            v-if="!loadingFunction && !errorFunction" :messages="messages" />
           </div>
 
         </div>
@@ -42,10 +42,10 @@ export default {
     messages () {
      return this.$store.getters.getMessageMain
     },
-      loadingF: function() {
+      loadingFunction: function() {
             return this.$store.getters.getLoading
         },
-          errorF: function (){
+          errorFunction: function (){
            return this.$store.getters.getError
         }
   },

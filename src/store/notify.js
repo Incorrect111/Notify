@@ -8,11 +8,11 @@ export default {
 
     },
     mutations: {
-        setMessage(state, payload) {
-            state.messages = payload
+        setMessage(state, message) {
+            state.messages = message
         },
-        setMessageMain(state, payload) {
-            state.messagesMain = payload
+        setMessageMain(state, messageMain) {
+            state.messagesMain = messageMain
         },
         setMessageEmpty(state) {
             state.messages = []
@@ -20,14 +20,14 @@ export default {
         setMessageMainEmpty(state) {
             state.messagesMain = []
         },
-        pushMessages(state, payload) {
-            state.messages.push(payload)
+        pushMessages(state, elOfArrayMesMainFalse) {
+            state.messages.push(elOfArrayMesMainFalse)
         },
-        pushMessagesMain(state, payload) {
-            state.messagesMain.push(payload)
+        pushMessagesMain(state, elOfArrayMesMainTrue) {
+            state.messagesMain.push(elOfArrayMesMainTrue)
         },
-        loadMessages(state, payload) {
-            state.messagesMain = [...state.messagesMain, ...payload]
+        loadMessages(state, resOfLoadmoreFunction) {
+            state.messagesMain = [...state.messagesMain, ...resOfLoadmoreFunction]
         },
     },
 
@@ -56,11 +56,12 @@ export default {
                 })
                 .catch(error => {
                     dispatch('setError', 'Error: Network error')
+                    dispatch('setLoading', false)
                 })
                 .finally(() => (dispatch('setLoading', false, { root: true })))
         },
-        setMessageMain({ commit }, payload) {
-            commit('setMessageMain', payload)
+        setMessageMain({ commit }, messageMain) {
+            commit('setMessageMain', messageMain)
         },
         setMessageMainEmpty({ commit }) {
             commit('setMessageMainEmpty')
@@ -72,32 +73,19 @@ export default {
             let res = getters.getMessageFilter
             commit('loadMessages', loadMore(res))
         },
-        pushMessages({ commit }, payload) {
-            commit('pushMessages', payload)
+        pushMessages({ commit }, elOfArrayMesMainFalse) {
+            commit('pushMessages', elOfArrayMesMainFalse)
         },
-        pushMessagesMain({ commit }, payload) {
-            commit('pushMessages', payload)
+        pushMessagesMain({ commit }, elOfArrayMesMainTrue) {
+            commit('pushMessages', elOfArrayMesMainTrue)
         }
     },
     getters: {
-        getMessage(state) {
-            return state.messages
-        },
-        getMessageMain(state) {
-            return state.messagesMain
-        },
-        getMessageEmpty(state) {
-            return state.messages
-        },
-        getMessageMainEmpty(state) {
-            return state.messagesMain
-        },
-        getMessageFilter(state) {
-            return state.messages.filter(mes => {
-                return mes.main === false
-            })
-        },
-
+        getMessage: state => state.messages,
+        getMessageMain: state => state.messagesMain,
+        getMessageEmpty: state => state.messages,
+        getMessageMainEmpty: state => state.messagesMain,
+        getMessageFilter: state => state.messages.filter(mes => mes.main === false)
     },
 
 }

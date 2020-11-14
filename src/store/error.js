@@ -2,26 +2,22 @@ export default {
 
     state: {
         error: false,
-        errorName: null
+        message: null
     },
     mutations: {
-        setError(state, payload) {
+        setError(state, errorMessage) {
             state.error = true
-            state.errorName = payload
-            alert(payload)
+            state.message = errorMessage
+            alert(errorMessage)
         }
     },
     actions: {
-        setError({ commit }, payload) {
-            commit('setError', payload)
+        setError({ commit }, errorMessage) {
+            commit('setError', errorMessage)
         }
     },
     getters: {
-        getError(state) {
-            return state.error
-        },
-        getErrorName(state) {
-            return state.errorName
-        }
+        getError: state => state.error,
+        getmessage: state => state.message
     },
 }
