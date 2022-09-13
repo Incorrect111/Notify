@@ -43,7 +43,7 @@ export default {
         setMessage({ commit, dispatch }) {
             dispatch('setLoading', true, { root: true })
             axios
-                .get('https://tocode.ru/static/c/vue-pro/notifyApi.php')
+                .get('https://tocode.ru/static/_secret/courses/1/notifyApi.php')
                 .then(response => {
                     let res = response.data.notify
                     commit('setMessageEmpty')
